@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, "index"])->name("home");
 Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard")->middleware(['auth']);
-
+Route::get("/produk/{produk:slug}", [HomeController::class, "detailProduk"])->name("home-detailProduk");
 
 Route::prefix('setting')->middleware(["auth"])->group(function () {
     Route::get("/negara", [NegaraController::class, "index"])->name("negara-index");
@@ -66,4 +66,5 @@ Route::prefix('setting')->middleware(["auth"])->group(function () {
     Route::get("/produk/edit/{produk:slug}", [ProdukController::class, "edit"])->name("produk-edit");
     Route::put("/produk/{produk:slug}", [ProdukController::class, "update"])->name("produk-update");
 });
+
 require __DIR__ . '/auth.php';
