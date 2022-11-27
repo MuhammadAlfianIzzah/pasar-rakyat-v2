@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreign("vendor_id")->references("id")->on("vendors");
             $table->foreignUuid("kategori_id");
             $table->foreign("kategori_id")->references("id")->on("kategori_produks");
+            $table->string("kupon")->default("kuponku");
             $table->foreignUuid("user_id");
             $table->foreign("user_id")->references("id")->on("users");
             $table->softDeletes();

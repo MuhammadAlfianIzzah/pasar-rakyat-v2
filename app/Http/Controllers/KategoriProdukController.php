@@ -23,7 +23,7 @@ class KategoriProdukController extends Controller
         $attr = $request->validate([
             "nama" => "nullable",
             "deskripsi" => "nullable",
-            "logo" => "nullable|mimes:png,jpg,jpeg",
+            "logo" => "nullable|mimes:png,jpg,jpeg,webp",
         ]);
         $attr["slug"] = Str::slug($attr["nama"] . "-" . uniqid(), '-');
         if ($request->file("logo")) {
@@ -38,7 +38,7 @@ class KategoriProdukController extends Controller
         $attr = $request->validate([
             "nama" => "required",
             "deskripsi" => "required",
-            "logo" => "required|mimes:png,jpg,jpeg",
+            "logo" => "required|mimes:png,jpg,jpeg,webp",
         ]);
         $attr["slug"] = Str::slug($attr["nama"] . "-" . uniqid(), '-');
         $attr["logo"] = $request->file("logo")->store("/kategori/produk/logo");

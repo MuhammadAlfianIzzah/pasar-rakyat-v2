@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Kabupaten::factory(10)->create();
+        $this->call([
+            UserGroupSeeder::class
+        ]);
         User::factory(10)->create();
     }
 }

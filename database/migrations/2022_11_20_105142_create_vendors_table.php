@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("nama");
+            $table->string("nomor_hp");
             $table->text("slug");
             $table->text("deskripsi");
             $table->text("alamat_lengkap");

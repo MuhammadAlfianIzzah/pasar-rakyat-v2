@@ -29,9 +29,10 @@ class VendorsController extends Controller
         $attr = $request->validate([
             "is_core" => "nullable",
             "nama" => "nullable",
+            "nomor_hp" => "nullable",
             "deskripsi" => "nullable",
             "alamat_lengkap" => "nullable",
-            "logo" => "nullable|mimes:png,jpg,jpeg",
+            "logo" => "nullable|mimes:png,jpg,jpeg,webp",
             "lat" => "nullable",
             "lang" => "nullable",
             "kabupaten_id" => "nullable|exists:kabupatens,id",
@@ -51,9 +52,10 @@ class VendorsController extends Controller
         $attr = $request->validate([
             "is_core" => "nullable",
             "nama" => "required",
+            "nomor_hp" => "nullable",
             "deskripsi" => "required",
             "alamat_lengkap" => "required",
-            "logo" => "required|mimes:png,jpg,jpeg",
+            "logo" => "required|mimes:png,jpg,jpeg,webp",
             "lat" => "required",
             "lang" => "required",
             "kabupaten_id" => "required|exists:kabupatens,id",

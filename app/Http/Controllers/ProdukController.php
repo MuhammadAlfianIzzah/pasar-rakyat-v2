@@ -13,7 +13,7 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produks = Produk::paginate(5);
+        $produks = Produk::where(["user_id" => auth()->user()->id])->paginate(5);
         $kategoris = KategoriProduk::get();
         return view("pages.produk.index", compact("produks", "kategoris"));
     }
@@ -28,7 +28,7 @@ class ProdukController extends Controller
             "nama" => "nullable",
             "deskripsi" => "nullable",
             "logo" => "nullable",
-            "logo.*" => "mimes:png,jpg,jpeg|image",
+            "logo.*" => "mimes:png,jpg,jpeg,webp|image",
             "harga_min" => "nullable",
             "stok" => "nullable",
             "harga_max" => "nullable",
@@ -48,7 +48,7 @@ class ProdukController extends Controller
             "nama" => "required",
             "deskripsi" => "required",
             "logo" => "required",
-            "logo.*" => "mimes:png,jpg,jpeg|image",
+            "logo.*" => "mimes:png,jpg,jpeg,webp|image",
             "harga_min" => "required",
             "stok" => "required",
             "harga_max" => "required",
@@ -56,6 +56,7 @@ class ProdukController extends Controller
         ]);
         $attr["slug"] = Str::slug($attr["nama"] . "-" . uniqid(), '-');
         $attr["user_id"] = auth()->user()->id;
+        $attr["vendor_id"] = auth()->user()->vendor[0]->id ?? null;
         $produk = Produk::create($attr);
         foreach ($request->file("logo") as $logo) {
             $nama_gambar = $logo->store("/produk/logo");

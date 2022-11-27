@@ -11,4 +11,9 @@ class Kabupaten extends Model
 {
     protected $fillable = ["nama", "logo", "lat", "lang", "deskripsi", "slug", "provinsi_id"];
     use HasFactory, HasUuids, SoftDeletes;
+
+    public function adminPasarKabupaten()
+    {
+        return $this->hasOne(AdminPasarKabupaten::class, "kabupaten_id");
+    }
 }

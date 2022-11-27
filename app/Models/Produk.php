@@ -12,10 +12,31 @@ class Produk extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     use HasFactory, HasUuids, SoftDeletes;
-    protected $fillable = ["nama", "deskripsi", "slug", "harga_min", "harga_max", "stok", "vendor_id", "kategori_id", "user_id"];
+    protected $fillable = ["nama", "deskripsi", "slug", "harga_min", "harga_max", "stok", "vendor_id", "kategori_id", "user_id", "kupon"];
 
     public function logos()
     {
         return $this->hasMany(ProdukGambar::class, "produk_id");
+    }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, "vendor_id");
+    }
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class, "produk_id");
+    }
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where(function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $search . '%');
+            });
+        });
+    }
+    public function ratings()
+    {
+        return $this->hasMany(RatingProduk::class, "produk_id");
     }
 }

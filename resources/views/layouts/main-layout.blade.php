@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Pasar Rakyat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -16,9 +16,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -32,36 +36,27 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Halaman Utama</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" href="{{ route('home-produk') }}">Belanja</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('home-daftar-vendor') }}">Daftar
+                            Vendor</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2 px-4" type="search" placeholder="Search" aria-label="Search">
-                    {{-- <button class="btn btn-outline-success" type="submit">Search</button> --}}
-                    <button class="ms-2 btn btn-outline-primary">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </button>
-                </form>
+                @guest
+                    <a href="{{ route('dashboard') }}" class="nav-link me-2">Login</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="nav-link me-2">Dashboard</a>
+                @endguest
+                <a href="{{ route('cart.list') }}" class="btn btn-primary">
+                    <i class="fa-solid fa-cart-shopping"></i> <span class="badge text-bg-secondary">
+                        {{ count(Cart::getContent()) }}
+                    </span>
+                </a>
+
             </div>
         </div>
     </nav>
@@ -188,81 +183,15 @@
         </div>
         <!-- Copyright -->
     </footer>
+
     <!-- Footer -->
-    <script>
-        // Initialize the map and assign it to a variable for later use
-        // there's a few ways to declare a VARIABLE in javascript.
-        // you might also see people declaring variables using `const` and `let`
-        // var map = L.map('map', {
-        //     // Set latitude and longitude of the map center (required)
-        //     center: [-3.984370090705739, 122.50798720432785],
-        //     // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
-        //     zoom: 10
-        // });
 
-
-        // // Create a Tile Layer and add it to the map
-        // var tiles = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        //     // minZoom: '10'
-        // }).addTo(map);
-
-        // var marker = L.marker(
-        //     [-3.984370090705739, 122.50798720432785], {
-        //         draggable: true,
-        //         title: "",
-        //         opacity: 0.75
-        //     });
-
-        // marker.addTo(map)
-        //     .bindPopup(
-        //         "<p1><b>The White House</b><br>Landmark, historic home & office of the United States president, with tours for visitors.</p1>"
-        //     ).openPopup();
-        var LeafIcon = L.Icon.extend({
-            options: {
-                shadowUrl: 'leaf-shadow.png',
-                iconSize: [45, 45],
-                shadowSize: [45, 45],
-                iconAnchor: [45, 45],
-                // shadowAnchor: [4, 45],
-                // popupAnchor: [-3, -76]
-            }
-        });
-        var greenIcon = new LeafIcon({
-            iconUrl: 'https://img.freepik.com/free-vector/marketplace-concept-illustration_114360-7002.jpg?w=740&t=st=1668728772~exp=1668729372~hmac=29cb11b21cf476968311645f40545f480b9d320eee0ecb92a44afe119fd037ac'
-        });
-        var locations = [
-            ["LOCATION_1", -3.9638055527204843, 122.5101055255384],
-            ["LOCATION_2", -4.043121460783066, 122.4812916255391],
-        ];
-
-        var map = L.map('map', {
-            // Set latitude and longitude of the map center (required)
-            center: [-3.984370090705739, 122.50798720432785],
-            // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
-            zoom: 10
-        });
-        mapLink =
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-        L.tileLayer(
-            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; ' + mapLink + ' Contributors',
-                maxZoom: 18,
-            }).addTo(map);
-
-        for (var i = 0; i < locations.length; i++) {
-            marker = new L.marker([locations[i][1], locations[i][2]], {
-                    icon: greenIcon
-                })
-                .bindPopup(
-                    "<p1><b>The White House</b><br>Landmark, historic home & office of the United States president, with tours for visitors.</p1>"
-                )
-                .addTo(map);
-        }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
+    @stack('script')
 </body>
 
 </html>

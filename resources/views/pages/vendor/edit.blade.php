@@ -28,6 +28,15 @@
                     <small class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
+            <div class="form-group">
+                <label for="nomor_hp">Nomor Hp</label>
+                <input type="text" value="{{ old('nomor_hp') ?? ($vendor->nomor_hp ?? '') }}" name="nomor_hp"
+                    class="form-control" id="nomor_hp">
+                @error('nomor_hp')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
             <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
                 <textarea name="deskripsi" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('deskripsi') ?? ($vendor->deskripsi ?? '') }}</textarea>
