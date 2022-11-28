@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="container-fluid">
-        @if (auth()->user()->user_group_id == 2 || auth()->user()->user_group_id == 3)
+        @if (auth()->user()->user_group_id != 1)
             <div class="row">
                 <div class="col-12">
                     @if (auth()->user()->vendor->count() > 0)
