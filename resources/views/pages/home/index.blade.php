@@ -75,7 +75,8 @@
                             style="height: 150px;object-fit: contain" class="card-img-top" alt="{{ $pr->nama }}">
                         <div class="card-body">
                             <p class="card-text">
-                                <a href="{{ route('home-detailProduk', [$pr->slug]) }}">{{ $pr->nama }}</a>
+                                <a
+                                    href="{{ route('home-detailProduk', [$pr->slug]) }}">{{ Str::limit($pr->nama, 50, '...') }}</a>
                             </p>
                             <div class="row">
                                 <div class="col-8">
