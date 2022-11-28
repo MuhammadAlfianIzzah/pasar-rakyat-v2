@@ -19,4 +19,13 @@ class Vendor extends Model
     {
         return $this->belongsTo(Kabupaten::class, "kabupaten_id");
     }
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where(function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $search . '%');
+            });
+        });
+    }
 }

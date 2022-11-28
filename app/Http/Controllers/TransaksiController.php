@@ -14,8 +14,6 @@ class TransaksiController extends Controller
 {
     public function store(Request $request)
     {
-
-        // return redirec
         $attr = $request->validate([
             "nama" => "required",
             "alamat" => "required",
@@ -25,8 +23,8 @@ class TransaksiController extends Controller
         ]);
         $attr["total"] = CartFacade::getTotal();
         $attr["quantity"] = CartFacade::getTotalQuantity();
+        $attr["user_id"]  = auth()->user()->id ?? null;
         $trasaksi_id = TransaksiTotal::create($attr)->id;
-
         $cartItems = CartFacade::getContent();
         $textProduk = "";
 
@@ -42,7 +40,8 @@ class TransaksiController extends Controller
                     "produk_id" => $item->id,
                     "total" => $item->price,
                     "quantity" => $item->quantity,
-                    "transaksi_total_id" => $trasaksi_id
+                    "transaksi_total_id" => $trasaksi_id,
+                    "user_id" => auth()->user()->id ?? null
                 ]
             );
         }
@@ -51,5 +50,11 @@ class TransaksiController extends Controller
         $url = "https://wa.me/62" . $nomor_hp . "?text=" . urlencode($text);
         CartFacade::clear();
         return redirect()->away($url);
+    }
+
+    public function history()
+    {
+        $transaksi =  TransaksiTotal::where("user_id", auth()->user()->id)->paginate(10);
+        return view("pages.admin.history.transaksi.index", compact("transaksi"));
     }
 }

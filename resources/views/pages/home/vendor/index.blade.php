@@ -1,5 +1,10 @@
 <x-main-layout>
     <div class="px-5 py-3 mb-4 bg-light rounded-3">
+        @if (request('search') || request('kategori_id'))
+            <div class="alert shadow-sm text-center" role="alert">
+                <h3> {{ request('search') ?? '💢' }} -- {{ request('kategori_id') ?? '💢' }}</h3>
+            </div>
+        @endif
         <div class="container-fluid py-3">
             <form action="" method="GET">
                 <div class="input-group">

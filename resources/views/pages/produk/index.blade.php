@@ -70,6 +70,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="berat">Berat Bersih</label>
+                                    <input type="number" value="{{ old('berat') }}" name="berat"
+                                        class="form-control" id="berat">
+                                    @error('berat')
+                                        <small class="form-text text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="deskripsi">Deskripsi</label>
                                     <textarea name="deskripsi" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('deskripsi') }}</textarea>
 
@@ -103,7 +111,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">batalkan</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">batalkan</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>

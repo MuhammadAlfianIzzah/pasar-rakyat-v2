@@ -26,14 +26,13 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td>Produk: 10</td>
-                                                <td>Bergabung: 30 Bulan Lalu</td>
-                                                <td>Mengikuti: 11</td>
+                                                <td>Jumlah Produk: {{ $vendor->produks->count() }}</td>
+                                                <td>Bergabung: {{ $vendor->created_at }}</td>
+
                                             </tr>
                                             <tr>
-                                                <td>Produk: 10</td>
-                                                <td>Bergabung: 30 Bulan Lalu</td>
-                                                <td>Mengikuti: 11</td>
+                                                <td>Contact Admin:
+                                                    {{ $vendor->kabupaten->adminPasarKabupaten->nomor_hp ?? '-' }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -44,7 +43,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 card py-4">
+                <h2 class="text-center"> Alamat:</h2>
+                <div class="text-center">
+                    {{ $vendor->alamat_lengkap }} <span class="badge text-bg-primary">Kabupaten</span>
+                    {{ $vendor->kabupaten->nama }}
+                </div>
+            </div>
         </div>
+
         <div class="row">
             <h5 class="py-3 text-center">Kamu mungkin suka</h5>
             @forelse ($vendor->produks as $pr)
@@ -61,7 +68,7 @@
                                     <small> Harga : {{ $pr->harga_max }}</small>
                                 </div>
                                 <div class="col-6">
-                                    <small>terjual : 0</small>
+                                    <small>terjual : {{ $pr->transaksis->count() }}</small>
                                 </div>
                             </div>
                         </div>
@@ -77,6 +84,7 @@
     </div>
     @push('script')
         <script>
+            var vendor = @json($vendor);
             var LeafIcon = L.Icon.extend({
                 options: {
                     shadowUrl: 'leaf-shadow.png',
@@ -91,14 +99,16 @@
                 iconUrl: 'https://img.freepik.com/free-vector/marketplace-concept-illustration_114360-7002.jpg?w=740&t=st=1668728772~exp=1668729372~hmac=29cb11b21cf476968311645f40545f480b9d320eee0ecb92a44afe119fd037ac'
             });
             var locations = [
-                ["LOCATION_1", -3.9638055527204843, 122.5101055255384],
+                [vendor.nama, vendor.lat, vendor.lang, vendor.deskripsi, @json(asset('storage')) + "/" +
+                    vendor.logo
+                ],
             ];
 
             var map = L.map('map', {
                 // Set latitude and longitude of the map center (required)
-                center: [-3.9638055527204843, 122.5101055255384],
+                center: [locations[0][1], locations[0][2]],
                 // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
-                zoom: 14
+                zoom: 13
             });
             mapLink =
                 '<a href="http://openstreetmap.org">OpenStreetMap</a>';
@@ -113,7 +123,17 @@
                         icon: greenIcon
                     })
                     .bindPopup(
-                        "<p1><b>The White House</b><br>Landmark, historic home & office of the United States president, with tours for visitors.</p1>"
+                        `<div class="card" style="width: 18rem;">
+                    <img style="height:100px;object-fit:contain" src="${locations[i][4]}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${locations[i][0]}</h5>
+                        <p class="card-text">${locations[i][3]}</p>
+                       <div class="d-flex gap-2">
+                         <a href="#" class="h4"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="h4"><i class="fa-solid fa-map-location-dot"></i></a>
+                        </div>
+                    </div>
+                    </div>`
                     )
                     .addTo(map);
             }

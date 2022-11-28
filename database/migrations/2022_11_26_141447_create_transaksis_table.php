@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->uuid("id")->primary();
+            $table->foreignUuid("user_id")->nullable();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->integer("quantity");
             $table->integer("total");
             $table->foreignUuid("produk_id");

@@ -12,7 +12,7 @@ class Produk extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     use HasFactory, HasUuids, SoftDeletes;
-    protected $fillable = ["nama", "deskripsi", "slug", "harga_min", "harga_max", "stok", "vendor_id", "kategori_id", "user_id", "kupon"];
+    protected $fillable = ["nama", "deskripsi", "slug", "berat", "harga_min", "harga_max", "stok", "vendor_id", "kategori_id", "user_id", "kupon"];
 
     public function logos()
     {
@@ -32,6 +32,11 @@ class Produk extends Model
             return $query->where(function ($query) use ($search) {
                 $query->where('nama', 'like', '%' . $search . '%')
                     ->orWhere('deskripsi', 'like', '%' . $search . '%');
+            });
+        });
+        $query->when($filters['kategori_id'] ?? false, function ($query, $kategori_id) {
+            return $query->where(function ($query) use ($kategori_id) {
+                $query->where('kategori_id', 'like', '%' . $kategori_id . '%');
             });
         });
     }

@@ -16,10 +16,12 @@
         <div class="row justify-content-center">
             @forelse ($vendors as $vendor)
                 <div class="col-lg-4 mb-2 col-md-6">
-                    <div class="card">
-                        <img style="height: 200px;object-fit: contain"
-                            src="{{ asset('storage') . '/' . $vendor->logo }}" class="card-img-top"
-                            alt="{{ $vendor->slug }}">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header">
+                            <img style="height: 150px;object-fit: contain"
+                                src="{{ asset('storage') . '/' . $vendor->logo }}" class="card-img-top"
+                                alt="{{ $vendor->slug }}">
+                        </div>
                         <div class="card-body">
                             <a href="{{ route('home.detail.vendor', [$vendor->slug]) }}"
                                 class="card-title">{{ $vendor->nama }}</a>

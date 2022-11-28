@@ -12,7 +12,7 @@ class Transaksi extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     use HasFactory, HasUuids, SoftDeletes;
-    protected $fillable = ["total", "quantity", "produk_id", "transaksi_total_id"];
+    protected $fillable = ["total", "quantity", "user_id", "produk_id", "transaksi_total_id"];
 
     use HasFactory;
 }

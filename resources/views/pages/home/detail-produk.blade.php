@@ -1,5 +1,6 @@
 <x-main-layout>
     <div class="container-fluid">
+
         <div class="row mt-4">
             <div class="col-lg-6 col-12">
                 <img style="width: 100%;height: 350px;object-fit: contain"

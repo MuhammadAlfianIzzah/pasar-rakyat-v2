@@ -31,6 +31,7 @@ class ProdukController extends Controller
             "logo.*" => "mimes:png,jpg,jpeg,webp|image",
             "harga_min" => "nullable",
             "stok" => "nullable",
+            "berat" => "nullable",
             "harga_max" => "nullable",
             "kategori_id" => "nullable|exists:kategori_produks,id",
         ]);
@@ -51,6 +52,7 @@ class ProdukController extends Controller
             "logo.*" => "mimes:png,jpg,jpeg,webp|image",
             "harga_min" => "required",
             "stok" => "required",
+            "berat" => "required",
             "harga_max" => "required",
             "kategori_id" => "required|exists:kategori_produks,id",
         ]);

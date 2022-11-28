@@ -33,12 +33,13 @@ class HomeController extends Controller
 
     public function produk()
     {
-        $produks = Produk::filter(request([]))->get();
-        return view("pages.home.produk.index", compact("produks"));
+        $produks = Produk::filter(request(["search", "kategori_id"]))->get();
+        $kategoris = KategoriProduk::get();
+        return view("pages.home.produk.index", compact("produks", "kategoris"));
     }
     public function vendor()
     {
-        $vendors = Vendor::get();
+        $vendors = Vendor::filter(request(["search"]))->get();
         return view("pages.home.vendor.index", compact("vendors"));
     }
 
@@ -79,5 +80,11 @@ class HomeController extends Controller
             return back()->with("success", "transaksi  berhasil diclaim");
         }
         return back()->with("error", "transaksi sudah pernah diclaim");
+    }
+
+    public function getKategoris(Request $request)
+    {
+        $data = KategoriProduk::get();
+        return response()->json($data);
     }
 }

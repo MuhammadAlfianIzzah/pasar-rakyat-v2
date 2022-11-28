@@ -11,7 +11,7 @@ class TransaksiTotal extends Model
 {
     protected $primaryKey = 'id';
     public $incrementing = false;
-    protected $fillable = ["nama", "nomor_hp", "alamat", "kota", "kecamatan", "total", "quantity", "already_paid", "admin_id"];
+    protected $fillable = ["nama", "user_id", "nomor_hp", "alamat", "kota", "kecamatan", "total", "quantity", "already_paid", "admin_id"];
     use HasFactory, HasUuids, SoftDeletes;
     public function rating()
     {

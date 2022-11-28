@@ -39,6 +39,7 @@ Route::post("/rate/{produk:slug}", [RatingController::class, "store"])->name("ho
 
 
 Route::post("/transaksi", [TransaksiController::class, "store"])->name("home.transaksi.store");
+Route::get("/get-kategoris", [HomeController::class, "getKategoris"])->name("home.get.kategoris");
 
 
 Route::post("/add-to-cart/{produk:slug}", [CartController::class, "addToCart"])->name("home-add-to-cart");
@@ -102,4 +103,10 @@ Route::prefix('kelola')->middleware(["auth"])->group(function () {
     Route::get("/produk/edit/{produk:slug}", [ProdukController::class, "edit"])->name("produk-edit");
     Route::put("/produk/{produk:slug}", [ProdukController::class, "update"])->name("produk-update");
 });
+
+
+Route::prefix('history')->middleware(["auth"])->group(function () {
+    Route::get("/transaksi", [TransaksiController::class, "history"])->name("history.transaksi");
+});
+
 require __DIR__ . '/auth.php';

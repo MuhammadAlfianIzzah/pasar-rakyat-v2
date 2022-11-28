@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer("harga_min");
             $table->integer("harga_max");
             $table->integer("stok");
+            $table->integer("berat");
             $table->foreignUuid("vendor_id")->nullable();
             $table->foreign("vendor_id")->references("id")->on("vendors");
             $table->foreignUuid("kategori_id");

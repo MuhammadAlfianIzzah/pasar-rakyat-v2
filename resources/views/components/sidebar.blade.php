@@ -18,24 +18,23 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
+    @if (auth()->user()->user_group_id == 1)
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Menu Admin
+        </div>
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Menu Admin
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-claimTrasaksi') }}">
-            <i class="fa-brands fa-get-pocket"></i>
-            <span>Claim Trasaksi</span></a>
-    </li>
-
-
-    @if (auth()->user()->user_group_id == 1 || auth()->user()->user_group_id == 99)
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin-claimTrasaksi') }}">
+                <i class="fa-brands fa-get-pocket"></i>
+                <span>Claim Trasaksi</span></a>
+        </li>
+    @endif
+    @if (auth()->user()->user_group_id == 99)
         <!-- Heading -->
         <div class="sidebar-heading">
             Menu Superadmin
@@ -95,7 +94,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#market"
                 aria-expanded="true" aria-controls="market">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fa-solid fa-shop"></i>
                 <span>Market</span>
             </a>
 
@@ -112,9 +111,32 @@
             </div>
         </li>
         <!-- Divider -->
-        <hr class="sidebar-divider">
     @endif
 
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        History
+    </div>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaksi"
+            aria-expanded="true" aria-controls="transaksi">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Transaksi</span>
+        </a>
+
+        <div id="transaksi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">-- Market</h6>
+                <a class="collapse-item" href="{{ route('history.transaksi') }}">
+                    Riwayat Transaksi
+                </a>
+            </div>
+        </div>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

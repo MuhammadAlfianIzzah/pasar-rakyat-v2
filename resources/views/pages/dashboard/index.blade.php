@@ -1,22 +1,23 @@
 <x-admin-layout>
     <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-12">
-                @if (auth()->user()->vendor->count() > 0)
-                    <div class="alert alert-primary" role="alert">
-                        Anda punya produk baru? segera
-                        <a href="{{ route('market.index', [auth()->user()->vendor[0]->slug]) }}"
-                            class="alert-link">Daftarkan segera</a>
-                    </div>
-                @else
-                    <div class="alert alert-primary" role="alert">
-                        Anda memiliki produk yang ingin dipasarkan !! segera daftarkan produk anda diaplikasi kami
-                        <a href="{{ route('daftar-vendor-index') }}" class="alert-link">Daftarkan segera</a>
-                    </div>
-                @endif
+        @if (auth()->user()->user_group_id == 2 || auth()->user()->user_group_id == 3)
+            <div class="row">
+                <div class="col-12">
+                    @if (auth()->user()->vendor->count() > 0)
+                        <div class="alert alert-primary" role="alert">
+                            Anda punya produk baru? segera
+                            <a href="{{ route('market.index', [auth()->user()->vendor[0]->slug]) }}"
+                                class="alert-link">Daftarkan segera</a>
+                        </div>
+                    @else
+                        <div class="alert alert-primary" role="alert">
+                            Anda memiliki produk yang ingin dipasarkan !! segera daftarkan produk anda diaplikasi kami
+                            <a href="{{ route('daftar-vendor-index') }}" class="alert-link">Daftarkan segera</a>
+                        </div>
+                    @endif
+                </div>
             </div>
-        </div>
+        @endif
         <div class="row">
             <div class="col-6">
                 <div class="card">
