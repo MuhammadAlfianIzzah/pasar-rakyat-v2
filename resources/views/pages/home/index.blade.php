@@ -1,7 +1,7 @@
 <x-main-layout>
-    <div class="container-fluid">
+    <div>
         <div class="col-md-12">
-            <div class="h-100 p-2 text-bg-white rounded-3">
+            <div class="h-100 text-bg-white rounded-3">
                 {{-- <h4 class="py-4">Vendor Pasar Rakyat</h4> --}}
                 <div id="map" style="width: 100%; height: 400px;"></div>
             </div>
@@ -36,31 +36,38 @@
             @endforelse
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h4 class="py-4 text-center">Kategori Produk</h4>
+    <hr>
+    <div style="background-color: rgba(204, 213, 221,0.04)">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="py-4 text-center">Kategori Produk</h4>
+                </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            @forelse ($kategoris as $kategori)
-                <div class="col-lg-2 col-4 mb-4">
-                    <div class="card">
-                        <img style="height: 100px;object-fit: contain"
-                            src="{{ asset('storage') . '/' . $kategori->logo }}" class="card-img-top"
-                            alt="{{ $kategori->slug }}">
-                        <div class="card-body">
-                            <p class="card-text h6">{{ $kategori->nama }}</p>
+            <div class="row justify-content-center">
+                @forelse ($kategoris as $kategori)
+                    <div class="col-lg-2 col-4 mb-4">
+                        <div class="card border-0 shadow-sm">
+                            <img style="height: 100px;object-fit: contain"
+                                src="{{ asset('storage') . '/' . $kategori->logo }}" class="card-img-top"
+                                alt="{{ $kategori->slug }}">
+                            <div class="card-body">
+                                <p class="card-text h6 text-center">
+                                    <a
+                                        href="{{ route('home-produk', ['kategori_id' => $kategori->id]) }}">{{ $kategori->nama }}</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="alert alert-warning text-center" role="alert">
-                    Kategori Produk Belum Ada
-                </div>
-            @endforelse
+                @empty
+                    <div class="alert alert-warning text-center" role="alert">
+                        Kategori Produk Belum Ada
+                    </div>
+                @endforelse
+            </div>
         </div>
     </div>
+    <hr>
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
@@ -69,10 +76,12 @@
         </div>
         <div class="row">
             @forelse ($produk_terlaris as $pr)
-                <div class="col-lg-3 col-6 mb-4">
-                    <div class="card">
+                <div class="col-lg-3 col-6 mb-4 py-4">
+                    <div class="card border-0 "
+                        style="box-shadow: 0 4px 40px 0 rgba(112, 113, 143, 0.13);border: 2px solid white">
                         <img src="{{ asset('storage') . '/' . $pr->logos[0]->gambar }}"
-                            style="height: 150px;object-fit: contain" class="card-img-top" alt="{{ $pr->nama }}">
+                            style="height: 150px;object-fit: contain;opacity: .8;"
+                            class="card-img-top img-thumbnail border-0" alt="{{ $pr->nama }}">
                         <div class="card-body">
                             <p class="card-text">
                                 <a
@@ -80,8 +89,9 @@
                             </p>
                             <div class="row">
                                 <div class="col-8">
-                                    <small> Harga : <span class="fw-bold text-danger">Rp.
-                                            {{ number_format($pr->harga_max, 0, ',', '.') }}</span></small>
+                                    <small><span class="fw-bold h6 text-danger">Rp.
+                                            {{ number_format($pr->harga_max, 0, ',', '.') }}/{{ $pr->berat }}
+                                            kg</span></small>
                                 </div>
                                 <div class="col-4">
                                     <small>terjual : {{ $pr->transaksis->count() }}</small>

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('admin_pasar_kabupatens', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("nama");
+            $table->text("slug");
             $table->string("nomor_hp");
             $table->foreignUuid("kabupaten_id");
             $table->foreign("kabupaten_id")->references("id")->on("kabupatens");

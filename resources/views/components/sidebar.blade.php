@@ -11,16 +11,15 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-    @if (auth()->user()->user_group_id == 1)
+    <hr class="sidebar-divider">
+    @if (auth()->user()->user_group_id == 1 || auth()->user()->user_group_id == 99)
         <!-- Divider -->
-        <hr class="sidebar-divider">
 
         <!-- Heading -->
         <div class="sidebar-heading">
@@ -33,6 +32,8 @@
                 <i class="fa-brands fa-get-pocket"></i>
                 <span>Claim Trasaksi</span></a>
         </li>
+
+        <hr class="sidebar-divider">
     @endif
     @if (auth()->user()->user_group_id == 99)
         <!-- Heading -->
@@ -66,7 +67,11 @@
                 </div>
             </div>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin-kabupaten-index') }}">
+                <i class="fa-brands fa-get-pocket"></i>
+                <span>Set Admin Kabupaten</span></a>
+        </li>
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -113,7 +118,7 @@
         <!-- Divider -->
     @endif
 
-    <hr class="sidebar-divider">
+
 
     <div class="sidebar-heading">
         History

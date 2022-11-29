@@ -33,7 +33,7 @@ class TransaksiController extends Controller
             $nomor_hp = $produk->vendor->kabupaten->adminPasarKabupaten->nomor_hp ?? "89616452029";
 
             $url = route("home-detailProduk", [$produk->slug]);
-            $textProduk .= "\n*$item->name* \n" . $url . "\n$item->quantity x Rp.$item->price ( *Rp." . ($item->quantity * $item->price) . "* )\n__\n
+            $textProduk .= "\n*$item->name (" . $produk->berat * $item->quantity . ") kg* \n" . $url . "\n$item->quantity x Rp.$item->price ( *Rp." . ($item->quantity * $item->price) . "* )\n__\n
                 ";
             Transaksi::create(
                 [
@@ -45,7 +45,7 @@ class TransaksiController extends Controller
                 ]
             );
         }
-        $text = "Halo Admin, saya " . $attr["nama"] . " mau pesan:\n— — — — — — — — — — —" . $textProduk . "\n— — — — — — — — — — —\nTotal : *Rp." . CartFacade::getTotal() . "*\n\n— — — — — — — — — — —\n*Atas nama :*\n" . $attr["nama"] . " ( +62oK6WGBci24 )\n*Nomor hp :*" . $attr["nomor_hp"] . "\n-\n*Alamat :*\n" . $attr["alamat"] . " - Kec. " . $attr["kecamatan"] . "\ndengan kode transaksi
+        $text = "Halo Admin, saya " . $attr["nama"] . " mau pesan:\n\n— — — — — — — — — — —" . $textProduk . "\n— — — — — — — — — — —\nTotal : *Rp." . CartFacade::getTotal() . "*\n\n— — — — — — — — — — —\n*Atas nama :*\n" . $attr["nama"] . " \n*Nomor hp :*" . $attr["nomor_hp"] . "\n-\n*Alamat :*\n" . $attr["alamat"] . " - Kec. " . $attr["kecamatan"] . "\ndengan kode transaksi
         \n" . $trasaksi_id;
         $url = "https://wa.me/62" . $nomor_hp . "?text=" . urlencode($text);
         CartFacade::clear();

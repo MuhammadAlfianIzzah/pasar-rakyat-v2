@@ -27,20 +27,24 @@
     <div class="container">
         <div class="row">
             @forelse ($produks as $pr)
-                <div class="col-lg-3 col-6 mb-4">
-                    <div class="card">
+                <div class="col-lg-3 col-6 mb-4 py-4">
+                    <div class="card border-0 shadow-sm">
                         <img src="{{ asset('storage') . '/' . $pr->logos[0]->gambar }}"
-                            style="height: 150px;object-fit: contain" class="card-img-top" alt="{{ $pr->nama }}">
+                            style="height: 150px;object-fit: contain;opacity: .8;"
+                            class="card-img-top img-thumbnail border-0" alt="{{ $pr->nama }}">
                         <div class="card-body">
                             <p class="card-text">
-                                <a href="{{ route('home-detailProduk', [$pr->slug]) }}">{{ $pr->nama }}</a>
+                                <a
+                                    href="{{ route('home-detailProduk', [$pr->slug]) }}">{{ Str::limit($pr->nama, 50, '...') }}</a>
                             </p>
                             <div class="row">
-                                <div class="col-6">
-                                    <small> Harga : {{ $pr->harga_max }}</small>
+                                <div class="col-8">
+                                    <small><span class="fw-bold h6 text-danger">Rp.
+                                            {{ number_format($pr->harga_max, 0, ',', '.') }}/{{ $pr->berat }}
+                                            kg</span></small>
                                 </div>
-                                <div class="col-6">
-                                    <small>terjual : 0</small>
+                                <div class="col-4">
+                                    <small>terjual : {{ $pr->transaksis->count() }}</small>
                                 </div>
                             </div>
                         </div>

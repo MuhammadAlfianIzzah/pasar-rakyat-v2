@@ -1,8 +1,8 @@
 <x-main-layout>
-    <div class="container-fluid">
+    <div>
         <div class="row">
             <div class="col-12">
-                <div class="h-100 p-2 text-bg-white rounded-3">
+                <div class="h-100 text-bg-white rounded-3">
                     {{-- <h4 class="py-4">Vendor Pasar Rakyat</h4> --}}
                     <div id="map" style="width: 100%; height: 400px;"></div>
                 </div>
